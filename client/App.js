@@ -62,8 +62,16 @@ class App extends Component {
     const messages = [message, ...this.state.messages];
     this.setState({messages});
   }
-
+// ???
   chatUpdate(users) {
     this.setState({users});
   }
+
+  handleMessageSubmit(message) {
+    const messages = [message, ...this.state.messages];
+    this.setState({ messages });
+    socket.emit('message', message);
+  }
 };
+
+export default App;
