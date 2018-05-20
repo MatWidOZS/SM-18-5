@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React, {Component} from 'react';
 import styles from './UserForm.css';
 
 class UserForm extends Component {
@@ -10,6 +9,7 @@ class UserForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    // gdzie onUserSubmit jest podpięte?
     this.props.onUserSubmit(this.state.name);
   }
 

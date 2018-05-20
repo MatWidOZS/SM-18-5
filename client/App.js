@@ -1,5 +1,5 @@
 // component?
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import io from 'socket.io-client';
 import styles from './App.css';
 import MessageForm from './MessageForm';
@@ -55,6 +55,7 @@ class App extends Component {
 
   componentDidMount() {
     socket.on('message', message => this.messageReceive(message));
+    // dlaczego users w {}?
     socket.on('update', ({users}) => this.chatUpdate(users));
   }
 
