@@ -63,3 +63,7 @@ class App extends Component {
     this.setState({messages});
   }
 
+  chatUpdate(users) {
+    this.setState({users});
+  }
+};
