@@ -53,3 +53,7 @@ class App extends Component {
     return (<UserForm onUserSubmit={name => this.handleUserSubmit(name)} />)
   }
 
+  componentDidMount() {
+    socket.on('message', message => this.messageReceive(message));
+    socket.on('update', ({users}) => this.chatUpdate(users));
+  }
