@@ -25,8 +25,18 @@ module.exports = (env) => {
     ] : []).concat(['./client/index.js']),
     output: {
       path: path.resolve(__dirname, 'public'),
-      filename: './bundle.js'
+      filename: 'bundle.js'
     },
+
+    devServer: {
+      proxy: {
+        '/socket.io': {
+          target: 'http://localhost:3000',
+          ws: true
+        }
+      }
+    },
+
     module: {
       rules: [
         {

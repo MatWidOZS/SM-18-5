@@ -15,7 +15,34 @@ class App extends Component {
     this.state = {users: [], messages: [], text: '', name: ''};
   }
 
+  componentDidMount() {
+    socket.on('message', message => this.messageReceive(message));
+    // dlaczego users w {}?
+    socket.on('update', ({ users }) => this.chatUpdate(users));
+  }
+
+  messageReceive(message) {
+    const messages = [message, ...this.state.messages];
+    this.setState({ messages });
+  }
+  // ???
+  chatUpdate(users) {
+    this.setState({ users });
+  }
+
+  handleMessageSubmit(message) {
+    const messages = [message, ...this.state.messages];
+    this.setState({ messages });
+    socket.emit('message', message);
+  }
+
+  handleUserSubmit(name) {
+    this.setState({ name });
+    socket.emit('join', name);
+  }
+
   render() {
+    // this.renderLayout() w nawiasie?
     return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
   }
 
@@ -53,31 +80,6 @@ class App extends Component {
     return (<UserForm onUserSubmit={name => this.handleUserSubmit(name)} />)
   }
 
-  componentDidMount() {
-    socket.on('message', message => this.messageReceive(message));
-    // dlaczego users w {}?
-    socket.on('update', ({users}) => this.chatUpdate(users));
-  }
-
-  messageReceive(message) {
-    const messages = [message, ...this.state.messages];
-    this.setState({messages});
-  }
-// ???
-  chatUpdate(users) {
-    this.setState({users});
-  }
-
-  handleMessageSubmit(message) {
-    const messages = [message, ...this.state.messages];
-    this.setState({messages});
-    socket.emit('message', message);
-  }
-
-  handleUserSubmit(name) {
-    this.setState({name});
-    socket.emit('join', name);
-  }
 };
 
 export default App;
